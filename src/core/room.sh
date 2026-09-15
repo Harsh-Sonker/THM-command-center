@@ -10,7 +10,7 @@ if [[ "$cmd" == "ls" ]]; then
     cmd="list"
 fi
 
-if [[ "$cmd" != "" && "$cmd" != "add" && "$cmd" != "create" && "$cmd" != "list" && "$cmd" != "use" && "$cmd" != "current" && "$cmd" != "finish" && "$cmd" != "solve" && "$cmd" != "end" && "$cmd" != "activate" && "$cmd" != "resume" ]]; then
+if [[ "$cmd" != "" && "$cmd" != "add" && "$cmd" != "create" && "$cmd" != "list" && "$cmd" != "use" && "$cmd" != "current" && "$cmd" != "finish" && "$cmd" != "solve" && "$cmd" != "end" && "$cmd" != "activate" && "$cmd" != "resume" && "$cmd" != "exit" && "$cmd" != "leave" ]]; then
     # Maybe the user typed 'thm room Overpass' expecting it to act as 'use'
     room_name="$cmd"
     cmd="use"
@@ -91,6 +91,19 @@ case "$cmd" in
         
         run_db room_update_status "$room_name" "completed" > /dev/null
         log_info "Room '$room_name' marked as COMPLETED! 🎉"
+        ;;
+        
+    exit|leave)
+        if [[ -z "$room_name" ]]; then
+            room_name=$(get_current_room)
+        fi
+        if [[ -z "$room_name" ]]; then
+            log_err "No active room to exit."
+            exit 1
+        fi
+        
+        run_db room_update_status "$room_name" "inactive" > /dev/null
+        log_info "Room '$room_name' marked as INACTIVE."
         ;;
         
     activate|resume)

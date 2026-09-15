@@ -20,12 +20,18 @@ echo ""
 echo -e "${BOLD}Current Room${NC} : $room"
 echo -e "${BOLD}Target${NC}       : ${target:-None}"
 
-# Later, this script will query the database to show
-# Ports, Findings, Commands, Evidence, Flags, etc.
-# For now, it's a stub that shows the context.
+room_json=$(run_db room_get "$room" 2>/dev/null || echo "")
+db_status=$(echo "$room_json" | jq -r '.status' 2>/dev/null || python3 -c "import sys, json; print(json.loads(sys.argv[1]).get('status', 'ACTIVE'))" "$room_json" 2>/dev/null || echo "ACTIVE")
 
-# Example placeholder for future DB queries
-echo -e "${BOLD}Status${NC}       : ACTIVE (placeholder)"
+if [[ "${db_status^^}" == "COMPLETED" ]]; then
+    color="\033[1;32m" # Green
+elif [[ "${db_status^^}" == "INACTIVE" ]]; then
+    color="\033[1;31m" # Red
+else
+    color="\033[1;36m" # Cyan
+fi
+
+echo -e "${BOLD}Status${NC}       : ${color}${db_status^^}${NC}"
 echo ""
 echo -e "${BOLD}TODO${NC}"
 echo "─────────────────────────────────────────"
