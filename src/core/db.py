@@ -363,6 +363,24 @@ def todo_done(room_name, task_id):
     conn.commit()
     conn.close()
 
+def create_target(room_name, ip, name=""):
+    room_id = get_room_id(room_name)
+    if not room_id: return
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("INSERT OR IGNORE INTO targets (room_id, ip, name) VALUES (?, ?, ?)", (room_id, ip, name))
+    conn.commit()
+    conn.close()
+
+def update_target_ip(room_name, old_ip, new_ip):
+    room_id = get_room_id(room_name)
+    if not room_id: return
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE targets SET ip = ? WHERE room_id = ? AND ip = ?", (new_ip, room_id, old_ip))
+    conn.commit()
+    conn.close()
+
 def note_add(room_name, content):
     room_id = get_room_id(room_name)
     if not room_id: return
@@ -525,6 +543,9 @@ def main():
     elif cmd == "target_list":
         if len(sys.argv) < 3: sys.exit(1)
         list_targets(sys.argv[2])
+    elif cmd == "target_update_ip":
+        if len(sys.argv) < 5: sys.exit(1)
+        update_target_ip(sys.argv[2], sys.argv[3], sys.argv[4])
     elif cmd == "command_log":
         if len(sys.argv) < 10: sys.exit(1)
         log_command(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], int(sys.argv[7]), sys.argv[8], int(sys.argv[9]))

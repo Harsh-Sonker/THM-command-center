@@ -127,6 +127,15 @@ case "$cmd" in
     tools)
         bash "${THM_CORE}/tools.sh" "$@"
         ;;
+    manual|help)
+        bash "${THM_CORE}/manual.sh" "$@"
+        ;;
+    jump|shell|enter|cd)
+        bash "${THM_CORE}/jump.sh" "$@"
+        ;;
+    ip)
+        bash "${THM_CORE}/target.sh" update "$@"
+        ;;
     -h|--help|"")
         show_help
         ;;
