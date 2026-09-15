@@ -6,7 +6,7 @@ set -Eeuo pipefail
 source "${THM_CORE}/utils.sh"
 
 cmd="${1:-list}"
-if [[ "$cmd" != "" && "$cmd" != "add" && "$cmd" != "list" && "$cmd" != "use" && "$cmd" != "current" && "$cmd" != "remove" ]]; then
+if [[ "$cmd" != "" && "$cmd" != "add" && "$cmd" != "list" && "$cmd" != "use" && "$cmd" != "current" && "$cmd" != "remove" && "$cmd" != "update" ]]; then
     # Maybe the user typed 'thm target 10.10.10.10' expecting 'use/add' behavior
     target_ip="$cmd"
     
@@ -31,6 +31,26 @@ else
 fi
 
 case "$cmd" in
+    update)
+        new_ip="$target_ip"
+        if [[ -z "$new_ip" ]]; then
+            log_err "Usage: thm target update <new_ip>"
+            exit 1
+        fi
+        
+        old_ip=$(get_current_target)
+        if [[ -z "$old_ip" ]]; then
+            log_err "No active target to update."
+            exit 1
+        fi
+        
+        room_name=$(get_current_room)
+        run_db target_update_ip "$room_name" "$old_ip" "$new_ip" >/dev/null 2>&1
+        set_context "$room_name" "$new_ip"
+        
+        log_info "Target IP updated from $old_ip to $new_ip."
+        ;;
+        
     add)
         if [[ -z "$target_ip" ]]; then
             log_err "Usage: thm target add <ip> [name]"
