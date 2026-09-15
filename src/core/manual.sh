@@ -22,6 +22,8 @@ thm init                 : Initialize database (run once after install)
 ----------------------------------------------------------------
 thm room ls              : List all rooms
 thm room use <room>      : Switch active room
+thm room finish          : Mark current room as completed/inactive
+thm room activate <room> : Reactivate a completed room
 thm target add <ip>      : Add an extra IP to current room
 thm target use <ip>      : Switch to another IP
 thm ip <new_ip>          : Update the current target's IP address

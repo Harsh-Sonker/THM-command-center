@@ -194,6 +194,13 @@ def get_room(name):
         sys.exit(1)
     conn.close()
 
+def update_room_status(name, status):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE rooms SET status = ? WHERE name = ?", (status, name))
+    conn.commit()
+    conn.close()
+
 def create_target(room_name, ip, name=""):
     conn = get_connection()
     try:
@@ -543,6 +550,9 @@ def main():
     elif cmd == "room_get":
         if len(sys.argv) < 3: sys.exit(1)
         get_room(sys.argv[2])
+    elif cmd == "room_update_status":
+        if len(sys.argv) < 4: sys.exit(1)
+        update_room_status(sys.argv[2], sys.argv[3])
     elif cmd == "target_create":
         if len(sys.argv) < 4: sys.exit(1)
         create_target(sys.argv[2], sys.argv[3], sys.argv[4] if len(sys.argv) > 4 else "")

@@ -10,7 +10,7 @@ if [[ "$cmd" == "ls" ]]; then
     cmd="list"
 fi
 
-if [[ "$cmd" != "" && "$cmd" != "add" && "$cmd" != "create" && "$cmd" != "list" && "$cmd" != "use" && "$cmd" != "current" ]]; then
+if [[ "$cmd" != "" && "$cmd" != "add" && "$cmd" != "create" && "$cmd" != "list" && "$cmd" != "use" && "$cmd" != "current" && "$cmd" != "finish" && "$cmd" != "solve" && "$cmd" != "end" && "$cmd" != "activate" && "$cmd" != "resume" ]]; then
     # Maybe the user typed 'thm room Overpass' expecting it to act as 'use'
     room_name="$cmd"
     cmd="use"
@@ -69,6 +69,38 @@ case "$cmd" in
             exit 1
         fi
         
+        status=$(echo "$room_json" | jq -r '.status' 2>/dev/null || python3 -c "import sys, json; print(json.loads(sys.argv[1]).get('status', 'active'))" "$room_json")
+        if [[ "$status" == "completed" || "$status" == "inactive" ]]; then
+            log_err "Room '$room_name' is completed/inactive."
+            log_err "Run 'thm room activate $room_name' to resume working on it."
+            exit 1
+        fi
+        
+        set_context "$room_name" ""
+        log_info "Switched to room: $room_name"
+        ;;
+        
+    finish|solve|end)
+        if [[ -z "$room_name" ]]; then
+            room_name=$(get_current_room)
+        fi
+        if [[ -z "$room_name" ]]; then
+            log_err "No active room to finish."
+            exit 1
+        fi
+        
+        run_db room_update_status "$room_name" "completed" > /dev/null
+        log_info "Room '$room_name' marked as COMPLETED! 🎉"
+        ;;
+        
+    activate|resume)
+        if [[ -z "$room_name" ]]; then
+            log_err "Usage: thm room activate <name>"
+            exit 1
+        fi
+        
+        run_db room_update_status "$room_name" "active" > /dev/null
+        log_info "Room '$room_name' is now ACTIVE."
         set_context "$room_name" ""
         log_info "Switched to room: $room_name"
         ;;

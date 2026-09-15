@@ -26,6 +26,8 @@ The tool uses a "Context" system. Once you set a room and target, you never have
 | `thm ctx` | Prints the active Room and Target names concisely. |
 | `thm room ls` | Lists all rooms you've created and their statuses. |
 | `thm room use <room>` | Switches your active context to a different room. |
+| `thm room finish` | Marks your currently active room as 'completed' (inactive). |
+| `thm room activate <room>` | Reactivates a completed room so you can work on it again. |
 | `thm target add <ip>` | Adds an additional target IP to your current room. |
 | `thm target use <ip>` | Switches your active context to a different target IP within the same room. |
 
