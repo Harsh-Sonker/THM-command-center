@@ -40,6 +40,8 @@ thm flag list            : See missing/found flags
 thm flag show            : Reveal flag plaintext
 thm finding add "<title>": Log a vulnerability
 thm cred add <usr> <pw>  : Save a credential (passwords masked by default)
+thm cred list            : List saved credentials and get their IDs
+thm cred show <id>       : Reveal the plaintext password for a credential
 thm note add "<text>"    : Add a note (or run without text for nano editor)
 thm todo add "<task>"    : Add a checklist task
 thm loot add <file_or_text> [name] : Copy file or link into loot folder

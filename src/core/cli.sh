@@ -41,7 +41,7 @@ Tool Execution:
 Entities & Evidence:
   flag          Manage flags (set, list, show)
   finding       Log vulnerabilities and findings
-  cred          Manage credentials
+  cred          Manage credentials (add, list, show)
   note          Add and list notes
   todo          Manage checklist tasks
   loot          Store collected evidence
