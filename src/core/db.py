@@ -511,6 +511,12 @@ def global_search(keyword):
     for r in cursor.fetchall():
         results.append({"type": "Finding", "room": r["room"], "detail": r["title"], "timestamp": r["created_at"]})
         
+    # Search Credentials
+    cursor.execute("SELECT r.name as room, c.username, c.service, c.created_at FROM credentials c JOIN rooms r ON c.room_id = r.id WHERE c.username LIKE ? OR c.service LIKE ? OR c.notes LIKE ?", (keyword, keyword, keyword))
+    for r in cursor.fetchall():
+        service = r["service"] if r["service"] else "Unknown"
+        results.append({"type": "Credential", "room": r["room"], "detail": f"{r['username']}@{service}", "timestamp": r["created_at"]})
+        
     # Search Commands
     cursor.execute("SELECT r.name as room, c.full_command, c.executed_at FROM commands c JOIN rooms r ON c.room_id = r.id WHERE c.full_command LIKE ?", (keyword,))
     for r in cursor.fetchall():
