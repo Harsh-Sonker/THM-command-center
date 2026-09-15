@@ -46,20 +46,14 @@ try:
     flags = json.loads(sys.argv[1])
     # Track expected flags
     found_types = {f['type']: f for f in flags}
-    
-    for expected in ['user', 'root']:
-        if expected in found_types:
-            f = found_types[expected]
-            date = f.get('found_at', '').split('.')[0]
-            print(f'{expected.ljust(15)} \033[0;32mFOUND\033[0m        {date}')
-        else:
-            print(f'{expected.ljust(15)} \033[0;31mMISSING\033[0m')
-            
     # Print custom flags
-    for t, f in found_types.items():
-        if t not in ['user', 'root']:
-            date = f.get('found_at', '').split('.')[0]
-            print(f'{t.ljust(15)} \033[0;32mFOUND\033[0m        {date}')
+    for f in flags:
+        t = f['type']
+        date = f.get('found_at', '').split('.')[0]
+        print(f'{t.ljust(15)} \033[0;32mFOUND\033[0m        {date}')
+    
+    if not flags:
+        print("No flags found yet.")
 except Exception as e:
     pass
 " "$flags_json"
