@@ -20,17 +20,45 @@ show_help() {
 
 Usage: thm <command> [options]
 
-Commands:
+Core Commands:
   init          Initialize THM workspace and database
   start         Quick start a room (thm start <room> <ip>)
   status, s     Show current room status
   ctx           Show current context
-  
+  jump, enter   Open a shell inside the active room's directory
+  tmux          Launch a 4-pane Tmux hacking dashboard
+  manual, help  Show the detailed interactive manual
+
+Room & Target Management:
   room, ls      Manage rooms (thm room use <room>, thm ls)
   target, t     Manage targets for current room
-  
-  run, r        Execute a command and log it
-  
+  ip            Update the current target's IP address
+
+Tool Execution:
+  run, r        Execute a command and log its output
+  history, h    View command history for the room
+
+Entities & Evidence:
+  flag          Manage flags (set, list, show)
+  finding       Log vulnerabilities and findings
+  cred          Manage credentials
+  note          Add and list notes
+  todo          Manage checklist tasks
+  loot          Store collected evidence
+  screenshot    Store screenshots
+  exploit       Store payloads and exploit scripts
+  enum          Store enumeration files
+  download      Store downloaded files
+
+Advanced Features:
+  search        Global search across database
+  timeline      Chronological room activity timeline
+  report        Generate Markdown executive summary
+  export        Export room into a .tar.gz archive
+  backup        Backup the global SQLite database
+  tools         Inventory check of security tools
+  doctor        Run health check on environment
+
 Options:
   --help, -h    Show this help message
   --version     Show version information
