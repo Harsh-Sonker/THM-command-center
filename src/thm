@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# thm - TryHackMe Command Center
+# Main entry point
+
+set -Eeuo pipefail
+
+# Determine paths
+THM_DIR="${HOME}/.local/share/thm"
+THM_CORE="${THM_DIR}/core"
+THM_CONFIG_DIR="${HOME}/.config/thm"
+THM_WORKSPACE="${HOME}/TryHackMe"
+
+# Allow dev override
+if [[ -n "${THM_DEV_MODE:-}" ]]; then
+    THM_CORE="$(pwd)/src/core"
+fi
+
+if [[ -z "${THM_DEV_MODE:-}" ]]; then
+    if [[ ! -d "$THM_DIR" || ! -d "$THM_CORE" ]]; then
+        if [[ "${1:-}" != "init" ]]; then
+            echo "[!] THM Command Center is not initialized."
+            echo "    Run 'thm init' if installed, or './install.sh' if in source directory."
+            exit 1
+        fi
+    fi
+fi
+
+# Pass control to the CLI router
+if [[ -f "${THM_CORE}/cli.sh" ]]; then
+    bash "${THM_CORE}/cli.sh" "$@"
+else
+    echo "Error: cli.sh not found in ${THM_CORE}"
+    exit 1
+fi
