@@ -5,10 +5,10 @@
 set -Eeuo pipefail
 
 # Determine paths
-THM_DIR="${HOME}/.local/share/thm"
-THM_CORE="${THM_DIR}/core"
-THM_CONFIG_DIR="${HOME}/.config/thm"
-THM_WORKSPACE="${HOME}/TryHackMe"
+export THM_DIR="${HOME}/.local/share/thm"
+export THM_CORE="${THM_DIR}/core"
+export THM_CONFIG_DIR="${HOME}/.config/thm"
+export THM_WORKSPACE="${HOME}/TryHackMe"
 
 # Allow dev override
 if [[ -n "${THM_DEV_MODE:-}" ]]; then
