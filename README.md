@@ -25,6 +25,21 @@ When tackling CTF rooms, managing terminal tabs, keeping track of targets, savin
 
 <br>
 
+## 🧠 How It Works (For Beginners)
+
+If you are new to CTFs, you might wonder why this tool is necessary. Here is the logic:
+
+1. **The Old Way**: Normally, when hacking a machine, you have to `mkdir Overpass`, then `mkdir nmap`, then run `nmap -sC -sV 10.10.10.10 > nmap/scan.txt`. You open 5 terminal tabs, and have to remember the IP `10.10.10.10` in every single tab. If you find a password, you open `nano passwords.txt` and save it. It gets messy fast.
+2. **The THM Command Center Way**: You just tell the tool you are starting a room: `thm start Overpass 10.10.10.10`. 
+   - The tool creates the folders for you. 
+   - It remembers the IP. 
+   - When you type `thm nmap`, it knows to scan `10.10.10.10` and automatically saves the output text to the right folder. 
+   - When you find a password, you just type `thm cred add admin secret123` and it is saved in a local database.
+
+**In short**: You focus on the hacking, and the tool acts as your automated secretary, organizing your evidence and commands in the background!
+
+<br>
+
 ## ✨ Killer Features
 
 - 🧠 **Context-Aware Execution**: Define your room and target once (`thm start <room> <ip>`). Never type the IP again. The tool injects it automatically!
