@@ -78,6 +78,9 @@ Flags are stored in the database and a backup is written to a restricted (`chmod
 | `thm loot list` | Lists all files currently in the `loot/` folder. |
 | `thm screenshot add <file>` | Copies a file into the `screenshots/` folder of the current room. |
 | `thm screenshot list` | Lists all files currently in the `screenshots/` folder. |
+| `thm exploit add <file>` | Copies a payload/exploit script into the `exploits/` folder. |
+| `thm download add <file>` | Copies a downloaded file into the `downloads/` folder. |
+| `thm enum add <file>` | Copies an enumeration output file into the `enumeration/` folder. |
 
 ---
 

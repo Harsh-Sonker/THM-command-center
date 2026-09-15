@@ -136,6 +136,9 @@ case "$cmd" in
     ip)
         bash "${THM_CORE}/target.sh" update "$@"
         ;;
+    exploit|download|enum|payload|tmp)
+        bash "${THM_CORE}/store.sh" "$cmd" "$@"
+        ;;
     -h|--help|"")
         show_help
         ;;
