@@ -3,6 +3,8 @@
 
 set -Eeuo pipefail
 
+source "${THM_CORE}/utils.sh"
+
 log_info "Running THM Test Suite..."
 echo "--------------------------------------------------------"
 

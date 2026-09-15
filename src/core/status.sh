@@ -3,6 +3,8 @@
 
 set -Eeuo pipefail
 
+source "${THM_CORE}/utils.sh"
+
 room=$(get_current_room)
 target=$(get_current_target)
 

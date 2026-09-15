@@ -3,6 +3,8 @@
 
 set -Eeuo pipefail
 
+source "${THM_CORE}/utils.sh"
+
 cmd="${1:-list}"
 if [[ "$cmd" != "" && "$cmd" != "add" && "$cmd" != "create" && "$cmd" != "list" && "$cmd" != "use" && "$cmd" != "current" ]]; then
     # Maybe the user typed 'thm room Overpass' expecting it to act as 'use'

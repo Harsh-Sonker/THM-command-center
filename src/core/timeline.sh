@@ -3,6 +3,8 @@
 
 set -Eeuo pipefail
 
+source "${THM_CORE}/utils.sh"
+
 room_name=$(get_current_room)
 if [[ -z "$room_name" ]]; then
     log_err "No active room."

@@ -3,6 +3,8 @@
 
 set -Eeuo pipefail
 
+source "${THM_CORE}/utils.sh"
+
 keyword="${1:-}"
 
 if [[ -z "$keyword" ]]; then

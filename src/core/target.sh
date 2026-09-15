@@ -3,6 +3,8 @@
 
 set -Eeuo pipefail
 
+source "${THM_CORE}/utils.sh"
+
 cmd="${1:-list}"
 if [[ "$cmd" != "" && "$cmd" != "add" && "$cmd" != "list" && "$cmd" != "use" && "$cmd" != "current" && "$cmd" != "remove" ]]; then
     # Maybe the user typed 'thm target 10.10.10.10' expecting 'use/add' behavior

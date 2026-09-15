@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+
+source "${THM_CORE}/utils.sh"
 # thm - CLI Router
 
 cmd="${1:-}"

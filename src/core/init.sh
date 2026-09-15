@@ -3,6 +3,8 @@
 
 set -Eeuo pipefail
 
+source "${THM_CORE}/utils.sh"
+
 log_info "Initializing THM Command Center..."
 
 # Create workspace

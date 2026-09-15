@@ -3,6 +3,8 @@
 
 set -Eeuo pipefail
 
+source "${THM_CORE}/utils.sh"
+
 backup_dir="${HOME}/.local/share/thm/backups"
 mkdir -p "$backup_dir"
 

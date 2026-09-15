@@ -3,6 +3,8 @@
 
 set -Eeuo pipefail
 
+source "${THM_CORE}/utils.sh"
+
 if [[ $# -lt 2 ]]; then
     log_err "Usage: thm start <room_name> <target_ip>"
     exit 1

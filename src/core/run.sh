@@ -3,6 +3,8 @@
 
 set -Eeuo pipefail
 
+source "${THM_CORE}/utils.sh"
+
 if [[ $# -eq 0 ]]; then
     log_err "Usage: thm run <command> [args...]"
     exit 1
