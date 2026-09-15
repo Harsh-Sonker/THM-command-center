@@ -20,16 +20,27 @@ loot_dir="${room_dir}/loot"
 case "$cmd" in
     add)
         file="${1:-}"
-        if [[ -z "$file" || ! -f "$file" ]]; then
-            log_err "Usage: thm loot add <file>"
+        if [[ -z "$file" ]]; then
+            log_err "Usage: thm loot add <file_or_text> [filename]"
             exit 1
         fi
         
-        filename=$(basename "$file")
-        dest="${loot_dir}/${filename}"
+        mkdir -p "$loot_dir"
         
-        cp "$file" "$dest"
-        log_info "Copied $filename to loot."
+        if [[ -f "$file" ]]; then
+            filename=$(basename "$file")
+            if [[ -n "${2:-}" ]]; then
+                filename="$2"
+            fi
+            dest="${loot_dir}/${filename}"
+            cp "$file" "$dest"
+            log_info "Copied $filename to loot."
+        else
+            filename="${2:-text_$(date +%s).txt}"
+            dest="${loot_dir}/${filename}"
+            echo "$file" > "$dest"
+            log_info "Saved text/link to loot/$filename"
+        fi
         ;;
         
     list)

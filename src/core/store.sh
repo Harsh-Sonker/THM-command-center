@@ -32,17 +32,27 @@ esac
 
 case "$action" in
     add)
-        if [[ -z "$file" || ! -f "$file" ]]; then
-            log_err "Usage: thm $folder_type add <file>"
+        if [[ -z "$file" ]]; then
+            log_err "Usage: thm $folder_type add <file_or_text> [filename]"
             exit 1
         fi
         
-        filename=$(basename "$file")
-        dest="${target_dir}/${filename}"
-        
         mkdir -p "$target_dir"
-        cp "$file" "$dest"
-        log_info "Copied $filename to $target_dir"
+        
+        if [[ -f "$file" ]]; then
+            filename=$(basename "$file")
+            if [[ -n "${4:-}" ]]; then
+                filename="$4"
+            fi
+            dest="${target_dir}/${filename}"
+            cp "$file" "$dest"
+            log_info "Copied $filename to $target_dir"
+        else
+            filename="${4:-text_$(date +%s).txt}"
+            dest="${target_dir}/${filename}"
+            echo "$file" > "$dest"
+            log_info "Saved text/link to $target_dir/$filename"
+        fi
         ;;
         
     list)

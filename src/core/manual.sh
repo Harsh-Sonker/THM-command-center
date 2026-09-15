@@ -42,11 +42,11 @@ thm finding add "<title>": Log a vulnerability
 thm cred add <usr> <pw>  : Save a credential (passwords masked by default)
 thm note add "<text>"    : Add a note (or run without text for nano editor)
 thm todo add "<task>"    : Add a checklist task
-thm loot add <file>      : Copy evidence into loot folder
-thm screenshot add <file>: Copy image into screenshots folder
-thm exploit add <file>   : Copy a file to the exploits folder
-thm download add <file>  : Copy a file to the downloads folder
-thm enum add <file>      : Copy a file to the enumeration folder
+thm loot add <file_or_text> [name] : Copy file or link into loot folder
+thm screenshot add <file_or_text>  : Copy image/link into screenshots
+thm exploit add <file_or_text>     : Copy payload/link to exploits
+thm download add <file_or_text>    : Copy file/link to downloads
+thm enum add <file_or_text>        : Copy enum output/link to enumeration
 
 5. Advanced
 ----------------------------------------------------------------

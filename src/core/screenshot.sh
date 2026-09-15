@@ -20,16 +20,27 @@ screenshot_dir="${room_dir}/screenshots"
 case "$cmd" in
     add)
         file="${1:-}"
-        if [[ -z "$file" || ! -f "$file" ]]; then
-            log_err "Usage: thm screenshot add <file>"
+        if [[ -z "$file" ]]; then
+            log_err "Usage: thm screenshot add <file_or_text> [filename]"
             exit 1
         fi
         
-        filename=$(basename "$file")
-        dest="${screenshot_dir}/${filename}"
+        mkdir -p "$screenshot_dir"
         
-        cp "$file" "$dest"
-        log_info "Copied $filename to screenshots."
+        if [[ -f "$file" ]]; then
+            filename=$(basename "$file")
+            if [[ -n "${2:-}" ]]; then
+                filename="$2"
+            fi
+            dest="${screenshot_dir}/${filename}"
+            cp "$file" "$dest"
+            log_info "Copied $filename to screenshots."
+        else
+            filename="${2:-text_$(date +%s).txt}"
+            dest="${screenshot_dir}/${filename}"
+            echo "$file" > "$dest"
+            log_info "Saved text/link to screenshots/$filename"
+        fi
         ;;
         
     list)
