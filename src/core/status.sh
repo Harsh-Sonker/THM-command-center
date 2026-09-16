@@ -13,10 +13,17 @@ if [[ -z "$room" ]]; then
     exit 1
 fi
 
-echo -e "${CYAN}╔══════════════════════════════════════════╗${NC}"
-echo -e "${CYAN}║              THM COMMAND CENTER          ║${NC}"
-echo -e "${CYAN}╚══════════════════════════════════════════╝${NC}"
-echo ""
+short_mode=0
+if [[ "${1:-}" == "--short" || "${1:-}" == "-s" ]]; then
+    short_mode=1
+fi
+
+if [[ $short_mode -eq 0 ]]; then
+    echo -e "${CYAN}╔══════════════════════════════════════════╗${NC}"
+    echo -e "${CYAN}║              THM COMMAND CENTER          ║${NC}"
+    echo -e "${CYAN}╚══════════════════════════════════════════╝${NC}"
+    echo ""
+fi
 echo -e "${BOLD}Current Room${NC} : $room"
 echo -e "${BOLD}Target${NC}       : ${target:-None}"
 

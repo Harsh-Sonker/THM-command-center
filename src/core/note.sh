@@ -58,12 +58,12 @@ try:
     for n in notes:
         id_str = str(n['id']).ljust(3)
         date = n.get('created_at', '').split('.')[0]
+        import re
         content = n.get('content', '')
         # Truncate content for list view
+        content = re.sub(r'\s+', ' ', content).strip()
         if len(content) > 50:
-            content = content[:47].replace('\n', ' ') + '...'
-        else:
-            content = content.replace('\n', ' ')
+            content = content[:47] + '...'
         print(f'{id_str} [{date}] {content}')
 except Exception as e:
     pass

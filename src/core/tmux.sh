@@ -51,7 +51,7 @@ tmux split-window -v -t "${session_name}:0.2"
 # Name panes if possible, or just send a clear command
 tmux send-keys -t "${session_name}:0.0" "clear; echo -e '\033[1;32m=== Main Shell ===\033[0m'" C-m
 tmux send-keys -t "${session_name}:0.1" "clear; echo -e '\033[1;33m=== Exploitation ===\033[0m'" C-m
-tmux send-keys -t "${session_name}:0.2" "clear; echo -e '\033[1;34m=== Enumeration ===\033[0m'; thm s" C-m
+tmux send-keys -t "${session_name}:0.2" "clear; echo -e '\033[1;34m=== Enumeration ===\033[0m'; echo ''; thm s --short" C-m
 tmux send-keys -t "${session_name}:0.3" "clear; echo -e '\033[1;36m=== Notes ===\033[0m'; thm note" C-m
 
 # Select top-left pane
