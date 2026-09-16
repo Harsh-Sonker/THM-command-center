@@ -31,22 +31,59 @@ else
 fi
 
 case "$cmd" in
-    update)
-        new_ip="$target_ip"
-        if [[ -z "$new_ip" ]]; then
-            log_err "Usage: thm target update <new_ip>"
-            exit 1
-        fi
-        
-        old_ip=$(get_current_target)
-        if [[ -z "$old_ip" ]]; then
-            log_err "No active target to update."
+    remove|rm)
+        if [[ -z "$target_ip" ]]; then
+            log_err "Usage: thm target remove <ip>"
             exit 1
         fi
         
         room_name=$(get_current_room)
+        if [[ -z "$room_name" ]]; then
+            log_err "No active room."
+            exit 1
+        fi
+        
+        log_info "Removing target ${target_ip} from room ${room_name}..."
+        run_db target_remove "$room_name" "$target_ip" > /dev/null 2>&1
+        
+        curr=$(get_current_target)
+        if [[ "$curr" == "$target_ip" ]]; then
+            set_context "$room_name" ""
+            log_info "Cleared current target context."
+        fi
+        log_info "Target removed."
+        ;;
+        
+    update)
+        if [[ -z "$target_ip" ]]; then
+            log_err "Usage: thm target update <old_ip> <new_ip> OR thm target update <new_ip> (for current target)"
+            exit 1
+        fi
+        
+        if [[ -n "${2:-}" ]]; then
+            old_ip="$target_ip"
+            new_ip="$2"
+        else
+            old_ip=$(get_current_target)
+            new_ip="$target_ip"
+            if [[ -z "$old_ip" ]]; then
+                log_err "No active target to update and no old IP specified."
+                exit 1
+            fi
+        fi
+        
+        room_name=$(get_current_room)
+        if [[ -z "$room_name" ]]; then
+            log_err "No active room."
+            exit 1
+        fi
+        
         run_db target_update_ip "$room_name" "$old_ip" "$new_ip" >/dev/null 2>&1
-        set_context "$room_name" "$new_ip"
+        
+        curr=$(get_current_target)
+        if [[ "$curr" == "$old_ip" ]]; then
+            set_context "$room_name" "$new_ip"
+        fi
         
         log_info "Target IP updated from $old_ip to $new_ip."
         ;;

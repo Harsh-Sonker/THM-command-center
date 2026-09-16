@@ -379,6 +379,15 @@ def create_target(room_name, ip, name=""):
     conn.commit()
     conn.close()
 
+def target_remove(room_name, ip):
+    room_id = get_room_id(room_name)
+    if not room_id: return
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM targets WHERE room_id = ? AND ip = ?", (room_id, ip))
+    conn.commit()
+    conn.close()
+
 def update_target_ip(room_name, old_ip, new_ip):
     room_id = get_room_id(room_name)
     if not room_id: return
@@ -559,6 +568,9 @@ def main():
     elif cmd == "target_list":
         if len(sys.argv) < 3: sys.exit(1)
         list_targets(sys.argv[2])
+    elif cmd == "target_remove":
+        if len(sys.argv) < 4: sys.exit(1)
+        target_remove(sys.argv[2], sys.argv[3])
     elif cmd == "target_update_ip":
         if len(sys.argv) < 5: sys.exit(1)
         update_target_ip(sys.argv[2], sys.argv[3], sys.argv[4])
