@@ -88,7 +88,9 @@ If you want granular control over rooms, use the `thm room` subcommands:
 ### Detailed Target Commands (`thm target` & `thm ip`)
 - **`thm target add <ip>`**: Adds an additional target IP to your current room (useful for networks with multiple machines).
 - **`thm target use <ip>`**: Switches your active context to a different target IP within the same room.
-- **`thm ip <ip>`**: A crucial shortcut! If your TryHackMe machine expires and you get a new IP, simply run `thm ip <new_ip>` to seamlessly update the current target without losing any history.
+- **`thm target update <new_ip>`**: Updates the IP address of your currently active target (also aliased as `thm ip <new_ip>`).
+- **`thm target update <old_ip> <new_ip>`**: Updates the IP address of a specific target.
+- **`thm target remove <ip>`** (or `thm target rm`): Removes a target IP from your current room.
 
 ---
 
