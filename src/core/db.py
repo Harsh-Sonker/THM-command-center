@@ -211,6 +211,12 @@ def create_target(room_name, ip, name=""):
             print(f"Error: Room '{room_name}' not found.", file=sys.stderr)
             sys.exit(1)
             
+        cursor.execute("SELECT id FROM targets WHERE room_id = ? AND ip = ?", (room["id"], ip))
+        existing = cursor.fetchone()
+        if existing:
+            print(existing["id"])
+            return
+            
         cursor.execute("INSERT INTO targets (room_id, ip, name) VALUES (?, ?, ?)", (room["id"], ip, name))
         conn.commit()
         print(cursor.lastrowid)
@@ -370,14 +376,7 @@ def todo_done(room_name, task_id):
     conn.commit()
     conn.close()
 
-def create_target(room_name, ip, name=""):
-    room_id = get_room_id(room_name)
-    if not room_id: return
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("INSERT OR IGNORE INTO targets (room_id, ip, name) VALUES (?, ?, ?)", (room_id, ip, name))
-    conn.commit()
-    conn.close()
+
 
 def target_remove(room_name, ip):
     room_id = get_room_id(room_name)

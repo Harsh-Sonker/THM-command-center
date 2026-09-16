@@ -6,7 +6,7 @@ set -Eeuo pipefail
 source "${THM_CORE}/utils.sh"
 
 cmd="${1:-list}"
-if [[ "$cmd" != "" && "$cmd" != "add" && "$cmd" != "list" && "$cmd" != "use" && "$cmd" != "current" && "$cmd" != "remove" && "$cmd" != "update" ]]; then
+if [[ "$cmd" != "" && "$cmd" != "add" && "$cmd" != "list" && "$cmd" != "use" && "$cmd" != "current" && "$cmd" != "remove" && "$cmd" != "update" && "$cmd" != "rm" ]]; then
     # Maybe the user typed 'thm target 10.10.10.10' expecting 'use/add' behavior
     target_ip="$cmd"
     
@@ -19,8 +19,8 @@ if [[ "$cmd" != "" && "$cmd" != "add" && "$cmd" != "list" && "$cmd" != "use" && 
     
     # Check if IP looks somewhat valid (basic check)
     if [[ "$target_ip" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ || "$target_ip" =~ ^[a-zA-Z0-9.-]+$ ]]; then
-        # Default behavior: switch to it, if not exist, add it
-        # But we'll just implement the switch for now
+        # Default behavior: add to db if not exist, then switch
+        run_db target_create "$room_name" "$target_ip" "" >/dev/null 2>&1
         cmd="use"
     fi
 else
@@ -123,8 +123,7 @@ case "$cmd" in
             exit 1
         fi
         
-        # In a full implementation, we'd check if the target actually belongs to the room in DB
-        # For simplicity here, we assume it's valid if we switch context
+        run_db target_create "$room_name" "$target_ip" "" > /dev/null 2>&1
         set_context "$room_name" "$target_ip"
         log_info "Switched to target: $target_ip"
         ;;
