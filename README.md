@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Harsh-Sonker/THM-command-center/main/.github/logo.png" alt="THM Command Center Logo" width="150" onerror="this.style.display='none'">
+  <img src="https://raw.githubusercontent.com/Harsh-Sonker/THM-command-center/main/.github/logo.jpg" alt="THM Command Center Logo" width="150">
   
   # 🎯 THM CTF Command Center
 
