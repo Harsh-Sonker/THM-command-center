@@ -1,4 +1,19 @@
-# THM Command Center - Detailed User Guide
+<div align="center">
+  <h1>🎯 THM CTF Command Center - User Guide</h1>
+  
+  <p><b>The ultimate local-first CLI environment for mastering TryHackMe & HackTheBox on Kali Linux.</b></p>
+  
+  <p>
+    <img src="https://img.shields.io/badge/Language-BASH-brightgreen" alt="Language">
+    <img src="https://img.shields.io/badge/Database-SQLITE-blue" alt="Database">
+    <img src="https://img.shields.io/badge/OS-KALI%20LINUX-grey" alt="OS">
+    <img src="https://img.shields.io/badge/License-MIT-blue" alt="License">
+  </p>
+  
+  <p><i>Say goodbye to messy terminal tabs, lost scan outputs, and scattered notes.</i></p>
+</div>
+
+---
 
 Welcome to the **THM Command Center** Detailed User Guide. This tool acts as a "Local OS" specifically designed for managing TryHackMe (and HackTheBox) CTFs directly on your Kali Linux machine. It automates workspace creation, context switching, command logging, and evidence management using a local SQLite database.
 
