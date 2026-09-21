@@ -6,7 +6,7 @@ set -Eeuo pipefail
 echo "Installing THM Command Center..."
 
 # Check prerequisites
-for cmd in bash python3 sqlite3 jq; do
+for cmd in bash python3 sqlite3 jq column; do
     if ! command -v "$cmd" >/dev/null 2>&1; then
         echo "Error: Required command '$cmd' is missing."
         exit 1

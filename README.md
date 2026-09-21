@@ -55,6 +55,11 @@ If you are new to CTFs, you might wonder why this tool is necessary. Here is the
 ## 🚀 Quick Start Guide
 
 ### 1️⃣ Installation
+Ensure you have the required dependencies:
+```bash
+sudo apt update && sudo apt install sqlite3 jq bsdmainutils python3
+```
+
 Drop this into your Kali Linux terminal to install the tool locally:
 ```bash
 git clone https://github.com/Harsh-Sonker/THM-command-center.git
