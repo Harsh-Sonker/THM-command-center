@@ -69,7 +69,7 @@ case "$cmd" in
             exit 1
         fi
         
-        status=$(echo "$room_json" | jq -r '.status' 2>/dev/null || python3 -c "import sys, json; print(json.loads(sys.argv[1]).get('status', 'active'))" "$room_json")
+        status=$(echo "$room_json" | jq -r '.status // "active"')
         if [[ "$status" == "completed" || "$status" == "inactive" ]]; then
             log_err "Room '$room_name' is completed/inactive."
             log_err "Run 'thm room activate $room_name' to resume working on it."
@@ -135,18 +135,11 @@ case "$cmd" in
         echo -e "${BOLD}ROOM                 STATUS       CREATED${NC}"
         echo "--------------------------------------------------------"
         
-        python3 -c "
-import sys, json
-try:
-    rooms = json.loads(sys.argv[1])
-    for r in rooms:
-        name = r.get('name', '').ljust(20)
-        status = r.get('status', '').upper().ljust(12)
-        created = r.get('created_at', '').split(' ')[0]
-        print(f'{name} {status} {created}')
-except Exception as e:
-    pass
-" "$rooms_json"
+        echo "$rooms_json" | jq -r '.[] | [
+            (.name // ""),
+            (.status // "active" | ascii_upcase),
+            (.created_at // "" | split(" ")[0])
+        ] | @tsv' | column -t -s $'\t'
         ;;
         
     *)

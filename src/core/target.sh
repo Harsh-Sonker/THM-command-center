@@ -150,18 +150,11 @@ case "$cmd" in
         echo -e "${BOLD}TARGET IP            NAME                 CREATED${NC}"
         echo "--------------------------------------------------------"
         
-        python3 -c "
-import sys, json
-try:
-    targets = json.loads(sys.argv[1])
-    for t in targets:
-        ip = t.get('ip', '').ljust(20)
-        name = (t.get('name') or '').ljust(20)
-        created = t.get('created_at', '').split(' ')[0]
-        print(f'{ip} {name} {created}')
-except Exception as e:
-    pass
-" "$targets_json"
+        echo "$targets_json" | jq -r '.[] | [
+            (.ip // ""),
+            (.name // ""),
+            (.created_at // "" | split(" ")[0])
+        ] | @tsv' | column -t -s $'\t'
         ;;
         
     *)
