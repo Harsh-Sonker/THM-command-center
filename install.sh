@@ -3,6 +3,14 @@
 
 set -Eeuo pipefail
 
+# Detect the broken Windows Store bash shim and fail with a usable message.
+if [[ -n "${BASH:-}" && "${BASH}" == *"Microsoft/WindowsApps/bash.exe" ]]; then
+    echo "[!] This project requires a real Bash runtime, not the broken Windows Store bash shim." >&2
+    echo "    Use WSL2/Kali Linux or install Git for Windows, then run the installer again." >&2
+    echo "    Example: \"C:/Program Files/Git/bin/bash.exe\" -lc 'cd <project-folder> && bash install.sh'" >&2
+    exit 1
+fi
+
 echo "Installing THM Command Center..."
 
 # Check prerequisites

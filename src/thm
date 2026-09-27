@@ -4,6 +4,14 @@
 
 set -Eeuo pipefail
 
+# Make the failure mode explicit when the broken Windows Store bash shim is active.
+if [[ -n "${BASH:-}" && "${BASH}" == *"Microsoft/WindowsApps/bash.exe" ]]; then
+    echo "[!] THM requires a real Bash runtime, not the broken Windows Store bash shim." >&2
+    echo "    Use WSL2/Kali Linux or install Git for Windows, then run the tool again." >&2
+    echo "    Example: \"C:/Program Files/Git/bin/bash.exe\" -lc 'cd <project-folder> && bash src/thm --help'" >&2
+    exit 1
+fi
+
 # Determine paths
 export THM_DIR="${HOME}/.local/share/thm"
 export THM_CORE="${THM_DIR}/core"
