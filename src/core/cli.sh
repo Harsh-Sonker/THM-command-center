@@ -173,12 +173,10 @@ case "$cmd" in
     --version)
         echo "THM Command Center v1.0.0"
         ;;
-    nmap|gobuster|ffuf|nikto|whatweb|curl|wget)
+    nmap|rustscan|dirsearch|dirb|gobuster|ffuf|nikto|whatweb|curl|wget)
         bash "${THM_CORE}/run.sh" "$cmd" "$@"
         ;;
-    gb)
-        bash "${THM_CORE}/run.sh" "gobuster" "$@"
-        ;;
+
     fu)
         bash "${THM_CORE}/run.sh" "ffuf" "$@"
         ;;

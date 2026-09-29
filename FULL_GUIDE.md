@@ -107,7 +107,7 @@ Wraps any arbitrary command you run. It logs the activity and saves the output t
 **Usage:** `thm <tool> [args]`
 **Example:** `thm nmap -sC -sV -p-`
 You can drop the `run` keyword for popular tools. The wrapper fully supports interactive TTY, meaning progress bars and colors are preserved flawlessly while outputs are routed to categorized folders (e.g., `~/TryHackMe/<room_name>/scans/nmap/`).
-Supported native aliases include: `nmap`, `rustscan`, `gobuster` (or `gb`), `dirsearch`, `dirb`, `ffuf` (or `fu`), `nikto` (or `nk`), `whatweb` (or `ww`), `curl`, `wget`.
+Supported native aliases include: `nmap`, `rustscan`, `gobuster`, `dirsearch`, `dirb`, `ffuf` (or `fu`), `nikto` (or `nk`), `whatweb` (or `ww`), `curl`, `wget`.
 
 ### `thm history` (or `thm h`, `thm hist`)
 **Usage:** `thm history`
