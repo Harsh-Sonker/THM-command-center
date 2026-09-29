@@ -33,6 +33,6 @@ bash "${THM_CORE}/status.sh"
 
 echo ""
 echo -e "${YELLOW}Suggested commands:${NC}"
-echo "  thm nmap quick     - Quick Nmap scan"
-echo "  thm gb dir -u http://$target_ip - Directory brute-forcing"
+echo "  thm nmap -T4 -F $target_ip     - Quick Nmap scan"
+echo "  thm gobuster dir -u http://$target_ip -w /usr/share/wordlists/dirb/common.txt - Directory brute-forcing"
 echo "  thm run curl -i http://$target_ip/  - Capture initial request"
