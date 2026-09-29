@@ -81,10 +81,16 @@ log_info "Logging to: ${output_file}"
 # Execute the command, stream output to stdout, and tee to the file
 start_time=$(date +%s)
 
+# Determine if we should use script to preserve TTY (useful for gobuster visuals)
+use_script=false
+if [[ "$tool_name" == "gobuster" ]] && command -v script >/dev/null 2>&1; then
+    use_script=true
+fi
+
 # Temporarily disable pipefail so that if the command fails, tee doesn't crash the script early
 set +o pipefail
 
-if command -v script >/dev/null 2>&1; then
+if [[ "$use_script" == true ]]; then
     # Use script to preserve TTY (colors, progress bars for tools like gobuster)
     # Build a properly quoted command string to handle arguments safely
     quoted_cmd=$(printf "%q " "${cmd_array[@]}")
@@ -94,6 +100,7 @@ if command -v script >/dev/null 2>&1; then
     script -q -e -c "$quoted_cmd" "$output_file"
     exit_code=$?
 else
+    # Standard execution for dirsearch, ffuf, etc. to prevent huge \r log files and PTY crashes
     "${cmd_array[@]}" 2>&1 | tee "$output_file"
     # Capture the exit code of the actual command (PIPESTATUS[0])
     exit_code=${PIPESTATUS[0]}
