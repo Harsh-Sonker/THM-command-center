@@ -43,7 +43,7 @@ case "$cmd" in
         run_db room_create "$room_name" "$room_dir" > /dev/null
         
         # Create directories
-        mkdir -p "${room_dir}/"{targets,scans/{nmap,gobuster,ffuf,web,vuln},enumeration,exploits,findings,flags,loot,credentials,screenshots,notes,commands,sessions,downloads,reports,tmp}
+        mkdir -p "${room_dir}/"{targets,scans/{nmap,gobuster,ffuf,web,vuln,dirsearch,dirb,rustscan},enumeration,exploits,findings,flags,loot,credentials,screenshots,notes,commands,sessions,downloads,reports,tmp}
         
         # Create basic README
         echo "# ${room_name}" > "${room_dir}/README.md"
@@ -54,6 +54,16 @@ case "$cmd" in
         # Automatically use it
         set_context "$room_name" ""
         log_info "Switched to room: $room_name"
+        
+        echo ""
+        echo -e "${YELLOW}=================================================${NC}"
+        echo -e "${BOLD}Basic commands to get started:${NC}"
+        echo -e "  1. Add target:  ${CYAN}thm target add <ip> <name>${NC}"
+        echo -e "  2. Run scan:    ${CYAN}thm run rustscan -a <ip>${NC}"
+        echo -e "  3. Save note:   ${CYAN}thm note \"Found something interesting\"${NC}"
+        echo -e "  4. Store creds: ${CYAN}thm cred add admin password123 ssh${NC}"
+        echo -e "${YELLOW}=================================================${NC}"
+        echo ""
         ;;
         
     use)

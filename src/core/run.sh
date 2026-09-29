@@ -39,6 +39,18 @@ case "$tool_name" in
         category="scans/ffuf"
         out_dir="scans/ffuf"
         ;;
+    dirsearch)
+        category="scans/dirsearch"
+        out_dir="scans/dirsearch"
+        ;;
+    dirb)
+        category="scans/dirb"
+        out_dir="scans/dirb"
+        ;;
+    rustscan)
+        category="scans/rustscan"
+        out_dir="scans/rustscan"
+        ;;
     nikto)
         category="scans/nikto"
         out_dir="scans/nikto"
@@ -71,10 +83,22 @@ start_time=$(date +%s)
 
 # Temporarily disable pipefail so that if the command fails, tee doesn't crash the script early
 set +o pipefail
-"${cmd_array[@]}" 2>&1 | tee "$output_file"
 
-# Capture the exit code of the actual command (PIPESTATUS[0])
-exit_code=${PIPESTATUS[0]}
+if command -v script >/dev/null 2>&1; then
+    # Use script to preserve TTY (colors, progress bars for tools like gobuster)
+    # Build a properly quoted command string to handle arguments safely
+    quoted_cmd=$(printf "%q " "${cmd_array[@]}")
+    
+    # script -q (quiet) -e (return exit code of child) -c (command to run)
+    # Output is saved to $output_file while displaying on terminal
+    script -q -e -c "$quoted_cmd" "$output_file"
+    exit_code=$?
+else
+    "${cmd_array[@]}" 2>&1 | tee "$output_file"
+    # Capture the exit code of the actual command (PIPESTATUS[0])
+    exit_code=${PIPESTATUS[0]}
+fi
+
 set -o pipefail
 
 end_time=$(date +%s)

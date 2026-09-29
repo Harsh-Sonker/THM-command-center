@@ -45,6 +45,7 @@ If you are new to CTFs, you might wonder why this tool is necessary. Here is the
 - 🧠 **Context-Aware Execution**: Define your room and target once (`thm start <room> <ip>`). Never type the IP again. The tool injects it automatically!
 - 📂 **Auto-Structuring**: Instantly builds the perfect directory structure (`scans/`, `exploits/`, `loot/`, `reports/`, etc.) for every single room you tackle.
 - ⏱️ **Automatic Command Logging**: Run tools using our universal wrapper (e.g., `thm nmap -sC -sV`) and the exact command, execution time, exit code, and raw output are permanently saved to your database and folders.
+- 🎨 **Interactive TTY Support**: The universal wrapper fully supports TTY, preserving interactive visuals like progress bars and colors for tools like Gobuster and RustScan while still logging output flawlessly.
 - 🔍 **Global Search Engine**: Forgot which room had that specific password or exploit? Just run `thm search <keyword>` to scan across your entire database of rooms, notes, history, and findings.
 - 📓 **Entity Tracking**: Securely stash and track Flags, Notes, Findings, TODOs, and Credentials directly from your terminal.
 - 🚀 **Tmux Hacker Dashboard**: Spawn a perfectly split 4-pane Tmux window (Main Shell, Exploitation, Enumeration, Notes) pre-configured for your active room instantly (`thm tmux`).

@@ -43,7 +43,7 @@ When you run tools through the `thm run` wrapper, the exact command, start time,
 | Command | Description |
 |---|---|
 | `thm run <command>` (or `thm r`)| Wraps any command you run, logging its activity and output. Example: `thm run curl -i http://10.10.10.10` |
-| `thm <tool> [args]` | We have built-in aliases for popular tools. You can drop the `run` part entirely. Examples:<br>- `thm nmap -sC -sV`<br>- `thm gobuster dir -u http://10.10.10.10/ -w wordlist.txt`<br>- `thm ffuf -u http://10.10.10.10/FUZZ -w wordlist.txt`<br>- `thm nikto -h http://10.10.10.10` |
+| `thm <tool> [args]` | We have built-in aliases for popular tools. You can drop the `run` part entirely. Examples:<br>- `thm nmap -sC -sV`<br>- `thm rustscan -a 10.10.10.10`<br>- `thm gobuster dir -u http://10.10.10.10/ -w wordlist.txt`<br>- `thm dirsearch -u http://10.10.10.10/`<br>- `thm ffuf -u http://10.10.10.10/FUZZ -w wordlist.txt`<br>- `thm nikto -h http://10.10.10.10` |
 | `thm history` (or `thm h`) | Displays a chronological table of all commands executed in the current room, including duration and exit codes. |
 
 ---
